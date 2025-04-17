@@ -23,7 +23,5 @@ vector<int> solution(vector<int> arr) {
         }
     }
 
-
-
     return stk;
 }
