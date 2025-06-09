@@ -22,7 +22,7 @@ private:
 public:
     Headphone(State* initialState) : state(initialState) {}
     ~Headphone() { delete state; }
-    void setState(State* newState) {
+    void changeState(State* newState) {
         delete state;
         state = newState;
     }
@@ -54,25 +54,25 @@ public:
 // 함수 구현 분리(순환 참조 방지)
 void OffState::pressButton1(Headphone* context) {
     cout << "Turning on the headphone." << endl;
-    context->setState(new OnState());
+    context->changeState(new OnState());
 }
 
 void OnState::pressButton1(Headphone* context) {
     cout << "Turning off the headphone." << endl;
-    context->setState(new OffState());
+    context->changeState(new OffState());
 }
 void OnState::pressButton2(Headphone* context) {
     cout << "Playing music." << endl;
-    context->setState(new PlayingState());
+    context->changeState(new PlayingState());
 }
 
 void PlayingState::pressButton1(Headphone* context) {
     cout << "Turning off the headphone." << endl;
-    context->setState(new OffState());
+    context->changeState(new OffState());
 }
 void PlayingState::pressButton2(Headphone* context) {
     cout << "Pausing music." << endl;
-    context->setState(new OnState());
+    context->changeState(new OnState());
 }
 
 int main() {
